@@ -1,0 +1,8 @@
+#!/bin/sh
+'''exec' "/Users/rafayelmirijanyan/Desktop/Sprint 2026/DSCI 560/week 10/lab10/groupchat_app_src/backend/venv/bin/python3" "$0" "$@"
+' '''
+import sys
+from httpx import main
+if __name__ == '__main__':
+    sys.argv[0] = sys.argv[0].removesuffix('.exe')
+    sys.exit(main())

@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>BidBundle</title>
+  <link rel="stylesheet" href="/static/styles.css">
+  <link rel="manifest" href="/static/manifest.json">
+  <meta name="theme-color" content="#000000">
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/static/sw.js')
+    }
+  </script>
+</head>
+
+<body>
+  <div class="shell">
+    <section class="hero">
+      <div class="hero-copy">
+        <p class="eyebrow">Neighborhood service marketplace</p>
+        <h1>BidBundle</h1>
+        <p class="hero-text">
+          Homeowners and community managers combine recurring home-service needs into one bundle,
+          then let vendors compete for the best neighborhood-wide price.
+        </p>
+        <div class="hero-points">
+          <span>Pool cleaning</span>
+          <span>Gardening</span>
+          <span>Pressure washing</span>
+          <span>Landscaping</span>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="stat">
+          <strong id="openCount">0</strong>
+          <span>Open bundles</span>
+        </div>
+        <div class="stat">
+          <strong id="bidCount">0</strong>
+          <span>Total bids</span>
+        </div>
+        <div class="stat">
+          <strong id="awardCount">0</strong>
+          <span>Awarded deals</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="auth-panel panel" id="auth">
+      <div>
+        <h2>Join the marketplace</h2>
+        <p>Create an account as a homeowner, vendor, or community manager.</p>
+      </div>
+      <div class="grid two">
+        <input id="username" placeholder="Username">
+        <input id="password" placeholder="Password" type="password">
+      </div>
+      <div class="grid two">
+        <select id="role">
+          <option value="homeowner">Homeowner</option>
+          <option value="vendor">Vendor</option>
+          <option value="manager">Community Manager</option>
+        </select>
+        <div class="auth-actions">
+          <button id="signupBtn">Sign Up</button>
+          <button id="loginBtn" class="secondary">Log In</button>
+        </div>
+      </div>
+      <div id="authMsg" class="msg"></div>
+    </section>
+
+    <section class="dashboard hidden" id="dashboard">
+      <div class="toolbar panel">
+        <div>
+          <p class="eyebrow">Signed in</p>
+          <h2 id="welcomeTitle">Marketplace</h2>
+          <p id="welcomeCopy" class="soft"></p>
+        </div>
+        <div class="toolbar-actions">
+          <button id="refreshBtn" class="secondary">Refresh</button>
+          <button id="logoutBtn">Log Out</button>
+        </div>
+      </div>
+
+      <div class="grid main-grid">
+        <section class="panel form-panel" id="createPanel">
+          <h3>Create a service bundle</h3>
+          <p class="soft">Bundle multiple homes into one request so vendors can bid on the full job.</p>
+          <div class="grid two">
+            <input id="bundleTitle" placeholder="Bundle title">
+            <input id="serviceType" placeholder="Service type">
+          </div>
+          <div class="grid two">
+            <input id="neighborhood" placeholder="Neighborhood or HOA">
+            <input id="homesCount" type="number" min="1" placeholder="Number of homes">
+          </div>
+          <div class="grid two">
+            <input id="targetDate" placeholder="Target start date">
+            <input id="budgetNotes" placeholder="Budget notes (optional)">
+          </div>
+          <textarea id="bundleDescription" rows="5" placeholder="Describe the scope, frequency, and vendor expectations"></textarea>
+          <button id="createBundleBtn">Post Bundle</button>
+          <div id="bundleMsg" class="msg"></div>
+        </section>
+
+        <section class="panel info-panel">
+          <h3>How BidBundle works</h3>
+          <div id="roleGuide" class="steps"></div>
+        </section>
+      </div>
+
+      <section class="panel">
+        <div class="section-head">
+          <div>
+            <h3>Marketplace bundles</h3>
+            <p class="soft">Open opportunities and awarded neighborhood deals.</p>
+          </div>
+          <span id="marketStatus" class="soft"></span>
+        </div>
+        <div id="bundleList" class="bundle-list"></div>
+      </section>
+
+      <section class="panel bids-panel hidden" id="bidsPanel">
+        <div class="section-head">
+          <div>
+            <h3 id="bidsTitle">Bundle bids</h3>
+            <p id="bidsSubtitle" class="soft"></p>
+          </div>
+          <button id="closeBidsBtn" class="secondary">Close</button>
+        </div>
+        <div id="bidsList" class="bids-list"></div>
+      </section>
+    </section>
+  </div>
+
+  <!-- Chat toggle button (floating) -->
+  <button id="chatToggleBtn" class="hidden" title="Open chat">💬</button>
+
+  <!-- Chat panel -->
+  <div id="chatPanel" class="hidden">
+    <div class="chat-header">
+      <div>
+        <h3>BidBundle Chat</h3>
+        <p>End with ? to ask the AI assistant</p>
+      </div>
+      <button id="closeChatBtn">×</button>
+    </div>
+    <div id="chatMessages"></div>
+    <div class="chat-footer">
+      <input id="chatInput" type="text" placeholder="Ask a question or chat..." />
+      <button id="chatSendBtn">Send</button>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>
